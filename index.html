@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="GitHub Pagesで配布できる横スクロール型AIロボティラノゲーム。PC・スマホ対応。" />
+  <title>AI ROBO DINO RUN</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <p class="badge">GitHub Pages Ready</p>
+      <h1>AI ROBO DINO RUN</h1>
+      <p>AIロボティラノを操作して、障害物・レーザー・ボスドローンを突破しよう。</p>
+    </header>
+
+    <canvas id="game" width="960" height="540" aria-label="AI ROBO DINO RUN game screen"></canvas>
+
+    <div class="controls" aria-label="game controls">
+      <button id="startBtn">START / RESTART</button>
+      <button id="jumpBtn">JUMP</button>
+      <button id="dashBtn">DASH</button>
+      <button id="pauseBtn">PAUSE</button>
+      <button id="soundBtn">SOUND ON</button>
+      <button id="resetScoreBtn">RESET SCORE</button>
+    </div>
+
+    <section class="infoPanel">
+      <h2>遊び方</h2>
+      <div class="infoGrid">
+        <div><strong>PC</strong><br>Space / ↑ / W：ジャンプ<br>Shift / ↓ / S：ダッシュ<br>P：一時停止</div>
+        <div><strong>スマホ</strong><br>JUMP / DASHボタンで操作<br>画面タップでもジャンプ</div>
+        <div><strong>記録</strong><br>ハイスコアは端末のブラウザに保存<br>ランキング機能はなし</div>
+      </div>
+    </section>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
