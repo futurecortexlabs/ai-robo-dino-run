@@ -1,5 +1,8 @@
 # AI ROBO DINO RUN
 
+ゲームはここから行けます↓
+https://futurecortexlabs.github.io/ai-robo-dino-run/
+
 🤖🦖 AIロボティラノを操作して障害物を避けながら走り続けるエンドレスランゲームです。
 
 AI Robo Dino Run is a browser-based endless runner game where you control a robotic T-Rex and dodge obstacles to achieve the highest score.
