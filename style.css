@@ -250,3 +250,18 @@ button:active {
     padding: 7px 5px;
   }
 }
+
+
+#helpText{
+ text-align:center;
+ font-weight:700;
+ margin-top:8px;
+ color:#082235;
+}
+
+@media (max-width:720px){
+ #helpText{
+   font-size:13px;
+   margin-top:4px;
+ }
+}

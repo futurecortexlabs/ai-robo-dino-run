@@ -970,3 +970,11 @@ sprite.onload = function () {
 sprite.onerror = function () {
   requestAnimationFrame(loop);
 };
+
+const isMobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+const helpText=document.getElementById("helpText");
+if(helpText){
+ helpText.innerHTML=isMobile
+ ? "スマホ操作: 画面タップ/JUMP=ジャンプ・DASH=ダッシュ"
+ : "PC操作: Space=ジャンプ・Shift=ダッシュ・P=一時停止";
+}
