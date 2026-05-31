@@ -859,80 +859,38 @@ function loop() {
 
 /* =========================================================
    イベント
-   - スマホは touchstart 優先
-   - PCは pointerdown / keydown
-   - click遅延・二重発火を抑制
 ========================================================= */
 
-document.addEventListener(
-  "dblclick",
-  function (e) {
-    e.preventDefault();
-  },
-  { passive: false }
-);
-
-function bindFastTap(element, action) {
-  let lastTouchAt = 0;
-
-  element.addEventListener(
-    "touchstart",
-    function (e) {
-      lastTouchAt = Date.now();
-      e.preventDefault();
-      e.stopPropagation();
-      action();
-    },
-    { passive: false }
-  );
-
-  element.addEventListener(
-    "pointerdown",
-    function (e) {
-      if (e.pointerType === "touch") return;
-      e.preventDefault();
-      action();
-    },
-    { passive: false }
-  );
-
-  element.addEventListener(
-    "click",
-    function (e) {
-      if (Date.now() - lastTouchAt < 700) {
-        e.preventDefault();
-        return;
-      }
-
-      e.preventDefault();
-      action();
-    },
-    false
-  );
-}
-
-bindFastTap(startBtn, function () {
+startBtn.addEventListener("click", function (e) {
+  e.preventDefault();
   resetGame();
 });
 
-bindFastTap(jumpBtn, function () {
+jumpBtn.addEventListener("click", function (e) {
+  e.preventDefault();
   jump();
 });
 
-bindFastTap(dashBtn, function () {
+dashBtn.addEventListener("click", function (e) {
+  e.preventDefault();
   dash();
 });
 
-bindFastTap(pauseBtn, function () {
+pauseBtn.addEventListener("click", function (e) {
+  e.preventDefault();
   togglePause();
 });
 
-bindFastTap(soundBtn, function () {
+soundBtn.addEventListener("click", function (e) {
+  e.preventDefault();
+
   soundOn = !soundOn;
-  soundBtn.textContent = soundOn ? "SOUND" : "MUTE";
+  soundBtn.textContent = soundOn ? "SOUND ON" : "SOUND OFF";
 });
 
-bindFastTap(resetScoreBtn, function () {
+resetScoreBtn.addEventListener("click", function (e) {
+  e.preventDefault();
+
   if (confirm("ハイスコアをリセットしますか？")) {
     resetHighScore();
   }
@@ -961,18 +919,8 @@ window.addEventListener("keydown", function (e) {
 });
 
 canvas.addEventListener(
-  "touchstart",
-  function (e) {
-    e.preventDefault();
-    jump();
-  },
-  { passive: false }
-);
-
-canvas.addEventListener(
   "pointerdown",
   function (e) {
-    if (e.pointerType === "touch") return;
     e.preventDefault();
     jump();
   },

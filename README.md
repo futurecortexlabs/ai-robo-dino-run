@@ -17,9 +17,6 @@ GitHub Pagesでそのまま配布できる、PC・スマホ対応の横スクロ
 - HTML / CSS / JavaScriptだけで動作
 - GitHub Pages対応
 - PC・スマホ対応
-- スマホ操作UI最適化（JUMP / DASH大型化）
-- touchstart対応でタップ反応を改善
-- PWA対応
 - ティラノサウルス風プレイヤー画像
 - ジャンプ / 二段ジャンプ / ダッシュ
 - コイン収集
@@ -72,8 +69,6 @@ ai-robo-dino-run/
 ├─ index.html
 ├─ style.css
 ├─ game.js
-├─ manifest.json
-├─ sw.js
 ├─ README.md
 ├─ LICENSE
 ├─ .nojekyll
