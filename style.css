@@ -75,7 +75,7 @@ p {
 
 canvas {
   width: 100%;
-  max-width: 1080px;
+  max-width: 920px;
   aspect-ratio: 16 / 9;
   display: block;
   margin: 0 auto;
@@ -92,7 +92,7 @@ canvas {
   gap: 10px;
   align-items: stretch;
   justify-content: center;
-  width: min(100%, 1080px);
+  width: min(100%, 920px);
   margin: 0 auto;
 }
 
@@ -138,61 +138,6 @@ button:active {
   padding-inline: 12px;
 }
 
-
-.scoreBoard {
-  width: min(100%, 1080px);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-}
-
-.scoreBoard div {
-  min-height: 54px;
-  padding: 8px 10px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 8px 22px rgba(0, 80, 120, 0.16);
-  border: 1px solid rgba(0, 229, 255, 0.26);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.scoreBoard span {
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  color: #08728a;
-}
-
-.scoreBoard strong {
-  font-size: clamp(18px, 2.5vw, 28px);
-  line-height: 1;
-  color: #082235;
-}
-
-
-.messageBoard {
-  width: min(100%, 1080px);
-  min-height: 42px;
-  margin: 0 auto;
-  padding: 9px 14px;
-  border-radius: 16px;
-  background: rgba(0, 28, 45, 0.82);
-  color: #bfffff;
-  border: 1px solid rgba(0, 229, 255, 0.35);
-  box-shadow: 0 8px 22px rgba(0, 80, 120, 0.16);
-  font-weight: 900;
-  font-size: clamp(14px, 2vw, 20px);
-  line-height: 1.25;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
 @media (max-width: 720px) {
   body {
     overflow: hidden;
@@ -220,26 +165,6 @@ button:active {
 
   .hero p {
     display: none;
-  }
-
-  .scoreBoard {
-    width: 100%;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
-  }
-
-  .scoreBoard div {
-    min-height: 42px;
-    padding: 5px 4px;
-    border-radius: 12px;
-  }
-
-  .scoreBoard span {
-    font-size: 9px;
-  }
-
-  .scoreBoard strong {
-    font-size: clamp(16px, 5vw, 22px);
   }
 
   canvas {
@@ -297,28 +222,9 @@ button:active {
     font-size: clamp(22px, 4vw, 34px);
   }
 
-  .scoreBoard {
-    grid-template-columns: repeat(4, minmax(70px, 1fr));
-    gap: 5px;
-    max-width: 96vw;
-  }
-
-  .scoreBoard div {
-    min-height: 34px;
-    padding: 3px 6px;
-  }
-
-  .scoreBoard span {
-    font-size: 8px;
-  }
-
-  .scoreBoard strong {
-    font-size: 16px;
-  }
-
   canvas {
     width: auto;
-    height: min(64dvh, 390px);
+    height: min(68dvh, 360px);
     max-width: 96vw;
   }
 
@@ -358,106 +264,4 @@ button:active {
    font-size:13px;
    margin-top:4px;
  }
-}
-
-
-/* =========================================================
-   Final UI polish
-   - コメントはゲーム画面内ではなくスコア下に表示
-   - JUMP / DASH は同じ大きさで大きく
-   - その他ボタンは同じ大きさで小さく
-========================================================= */
-
-.controls {
-  grid-template-columns: 1.35fr 1.35fr repeat(4, 0.82fr);
-}
-
-#jumpBtn,
-#dashBtn {
-  min-height: 64px;
-  min-width: 0;
-  padding: 14px 18px;
-  font-size: 22px;
-  font-weight: 1000;
-  border-radius: 22px;
-}
-
-#startBtn,
-#pauseBtn,
-#soundBtn,
-#resetScoreBtn {
-  min-height: 42px;
-  min-width: 0;
-  padding: 9px 10px;
-  font-size: 11px;
-  font-weight: 900;
-  border-radius: 14px;
-}
-
-@media (max-width: 720px) {
-  .messageBoard {
-    width: 100%;
-    min-height: 36px;
-    padding: 7px 10px;
-    border-radius: 12px;
-    font-size: 13px;
-  }
-
-  .controls {
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "jump dash"
-      "start pause"
-      "sound reset";
-  }
-
-  #jumpBtn,
-  #dashBtn {
-    min-height: 76px;
-    padding: 14px 10px;
-    font-size: 24px;
-    border-radius: 22px;
-  }
-
-  #startBtn,
-  #pauseBtn,
-  #soundBtn,
-  #resetScoreBtn {
-    min-height: 40px;
-    padding: 8px 6px;
-    font-size: 11px;
-    border-radius: 14px;
-  }
-}
-
-@media (orientation: landscape) and (max-height: 520px) {
-  .messageBoard {
-    min-height: 30px;
-    padding: 4px 8px;
-    font-size: 12px;
-    border-radius: 10px;
-  }
-
-  .controls {
-    grid-template-columns: 1.25fr 1.25fr repeat(4, 0.82fr);
-    grid-template-areas: "jump dash start pause sound reset";
-  }
-
-  #jumpBtn,
-  #dashBtn {
-    min-height: 46px;
-    padding: 8px 6px;
-    font-size: 18px;
-    border-radius: 16px;
-  }
-
-  #startBtn,
-  #pauseBtn,
-  #soundBtn,
-  #resetScoreBtn {
-    min-height: 34px;
-    padding: 6px 4px;
-    font-size: 10px;
-    border-radius: 12px;
-  }
 }

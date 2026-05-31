@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "ai-robo-dino-run-v-final-message-buttons";
+const CACHE_NAME = "ai-robo-dino-run-v2";
 
 const urlsToCache = [
   "./",
