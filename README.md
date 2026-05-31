@@ -79,3 +79,12 @@ ai-robo-dino-run/
 ## ライセンス
 
 MIT License
+
+## 最終調整内容
+
+- スマホのJUMP / DASHボタンを大きく押しやすく調整
+- JUMP / DASHは `touchstart` 優先で反応するように改善
+- タッチ操作の二重発火を防止
+- PCでは遊び方パネルまで表示されやすいように調整
+- スマホでは画面構成を大きく崩さず、操作性を優先
+- PWA / GitHub Pages向けの `manifest.json` / `sw.js` / `.nojekyll` 対応済み

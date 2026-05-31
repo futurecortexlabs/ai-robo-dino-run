@@ -49,6 +49,31 @@ window.addEventListener("contextmenu", function (e) {
   e.preventDefault();
 });
 
+document.addEventListener(
+  "dblclick",
+  function (e) {
+    e.preventDefault();
+  },
+  { passive: false }
+);
+
+let lastTouchStart = 0;
+
+document.addEventListener(
+  "touchstart",
+  function (e) {
+    const now = Date.now();
+
+    if (now - lastTouchStart < 350) {
+      e.preventDefault();
+    }
+
+    lastTouchStart = now;
+  },
+  { passive: false }
+);
+
+
 /* =========================================================
    Canvas / UI
 ========================================================= */
@@ -861,36 +886,71 @@ function loop() {
    イベント
 ========================================================= */
 
-startBtn.addEventListener("click", function (e) {
-  e.preventDefault();
-  resetGame();
-});
+function addFastButton(button, action, options = {}) {
+  let lastRun = 0;
 
-jumpBtn.addEventListener("click", function (e) {
-  e.preventDefault();
-  jump();
-});
+  function run(e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
 
-dashBtn.addEventListener("click", function (e) {
-  e.preventDefault();
-  dash();
-});
+    const now = Date.now();
 
-pauseBtn.addEventListener("click", function (e) {
-  e.preventDefault();
-  togglePause();
-});
+    // touchstart と pointerdown/click の二重発火を防ぐ
+    if (now - lastRun < 120) return;
 
-soundBtn.addEventListener("click", function (e) {
-  e.preventDefault();
+    lastRun = now;
 
+    button.classList.add("is-pressed");
+    window.setTimeout(function () {
+      button.classList.remove("is-pressed");
+    }, 90);
+
+    action();
+  }
+
+  button.addEventListener(
+    "touchstart",
+    run,
+    { passive: false }
+  );
+
+  button.addEventListener(
+    "pointerdown",
+    function (e) {
+      if (e.pointerType === "touch") return;
+      run(e);
+    },
+    { passive: false }
+  );
+
+  button.addEventListener(
+    "click",
+    function (e) {
+      // PCのキーボード操作・古いブラウザの保険
+      if (options.skipClick) {
+        e.preventDefault();
+        return;
+      }
+
+      run(e);
+    },
+    { passive: false }
+  );
+}
+
+addFastButton(startBtn, resetGame);
+addFastButton(jumpBtn, jump, { skipClick: true });
+addFastButton(dashBtn, dash, { skipClick: true });
+addFastButton(pauseBtn, togglePause);
+
+addFastButton(soundBtn, function () {
   soundOn = !soundOn;
   soundBtn.textContent = soundOn ? "SOUND ON" : "SOUND OFF";
 });
 
-resetScoreBtn.addEventListener("click", function (e) {
-  e.preventDefault();
-
+addFastButton(resetScoreBtn, function () {
   if (confirm("ハイスコアをリセットしますか？")) {
     resetHighScore();
   }
@@ -918,9 +978,20 @@ window.addEventListener("keydown", function (e) {
   }
 });
 
+// ゲーム画面タップでもジャンプ。スマホでは touchstart を優先して反応を速くする。
+canvas.addEventListener(
+  "touchstart",
+  function (e) {
+    e.preventDefault();
+    jump();
+  },
+  { passive: false }
+);
+
 canvas.addEventListener(
   "pointerdown",
   function (e) {
+    if (e.pointerType === "touch") return;
     e.preventDefault();
     jump();
   },
