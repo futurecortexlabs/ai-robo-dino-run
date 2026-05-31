@@ -71,6 +71,7 @@ const scoreValueEl = document.getElementById("scoreValue");
 const bestValueEl = document.getElementById("bestValue");
 const coinValueEl = document.getElementById("coinValue");
 const speedValueEl = document.getElementById("speedValue");
+const messageBoardEl = document.getElementById("messageBoard");
 
 const sprite = new Image();
 sprite.src = "assets/robo_dino.png";
@@ -167,12 +168,17 @@ function resetGame() {
 
   pauseBtn.textContent = "PAUSE";
   updateScoreBoard();
+  if (messageBoardEl) messageBoardEl.textContent = game.message;
   beep(660, 0.08, "triangle");
 }
 
 function say(text) {
   game.message = text;
   game.messageTimer = 110;
+
+  if (messageBoardEl) {
+    messageBoardEl.textContent = text;
+  }
 }
 
 function getFinalScore() {
@@ -813,21 +819,6 @@ function drawUI() {
 
   if (game.messageTimer > 0) {
     game.messageTimer--;
-
-    const messageWidth = Math.min(620, W - 48);
-    const messageX = (W - messageWidth) / 2;
-
-    ctx.save();
-    ctx.fillStyle = "rgba(0,28,45,.78)";
-    ctx.beginPath();
-    ctx.roundRect(messageX, 18, messageWidth, 48, 16);
-    ctx.fill();
-
-    ctx.fillStyle = "#bfffff";
-    ctx.textAlign = "center";
-    ctx.font = "bold 20px system-ui";
-    ctx.fillText(game.message, W / 2, 49);
-    ctx.restore();
   }
 
   if (game.paused) {
