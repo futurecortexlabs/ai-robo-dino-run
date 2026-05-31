@@ -30,3 +30,10 @@ sw.js
 assets/robo_dino.png
 .nojekyll
 ```
+
+
+## Final UI Update
+
+- SCORE / BEST / COIN / SPEED are displayed below the title, outside the game canvas.
+- The game screen no longer has a large score panel over the player.
+- PC and mobile show only the relevant control guide.

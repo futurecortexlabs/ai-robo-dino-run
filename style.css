@@ -75,7 +75,7 @@ p {
 
 canvas {
   width: 100%;
-  max-width: 920px;
+  max-width: 1080px;
   aspect-ratio: 16 / 9;
   display: block;
   margin: 0 auto;
@@ -92,7 +92,7 @@ canvas {
   gap: 10px;
   align-items: stretch;
   justify-content: center;
-  width: min(100%, 920px);
+  width: min(100%, 1080px);
   margin: 0 auto;
 }
 
@@ -138,6 +138,41 @@ button:active {
   padding-inline: 12px;
 }
 
+
+.scoreBoard {
+  width: min(100%, 1080px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.scoreBoard div {
+  min-height: 54px;
+  padding: 8px 10px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 8px 22px rgba(0, 80, 120, 0.16);
+  border: 1px solid rgba(0, 229, 255, 0.26);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.scoreBoard span {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: #08728a;
+}
+
+.scoreBoard strong {
+  font-size: clamp(18px, 2.5vw, 28px);
+  line-height: 1;
+  color: #082235;
+}
+
 @media (max-width: 720px) {
   body {
     overflow: hidden;
@@ -165,6 +200,26 @@ button:active {
 
   .hero p {
     display: none;
+  }
+
+  .scoreBoard {
+    width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+
+  .scoreBoard div {
+    min-height: 42px;
+    padding: 5px 4px;
+    border-radius: 12px;
+  }
+
+  .scoreBoard span {
+    font-size: 9px;
+  }
+
+  .scoreBoard strong {
+    font-size: clamp(16px, 5vw, 22px);
   }
 
   canvas {
@@ -222,9 +277,28 @@ button:active {
     font-size: clamp(22px, 4vw, 34px);
   }
 
+  .scoreBoard {
+    grid-template-columns: repeat(4, minmax(70px, 1fr));
+    gap: 5px;
+    max-width: 96vw;
+  }
+
+  .scoreBoard div {
+    min-height: 34px;
+    padding: 3px 6px;
+  }
+
+  .scoreBoard span {
+    font-size: 8px;
+  }
+
+  .scoreBoard strong {
+    font-size: 16px;
+  }
+
   canvas {
     width: auto;
-    height: min(68dvh, 360px);
+    height: min(64dvh, 390px);
     max-width: 96vw;
   }
 

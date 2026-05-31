@@ -67,6 +67,11 @@ const pauseBtn = document.getElementById("pauseBtn");
 const soundBtn = document.getElementById("soundBtn");
 const resetScoreBtn = document.getElementById("resetScoreBtn");
 
+const scoreValueEl = document.getElementById("scoreValue");
+const bestValueEl = document.getElementById("bestValue");
+const coinValueEl = document.getElementById("coinValue");
+const speedValueEl = document.getElementById("speedValue");
+
 const sprite = new Image();
 sprite.src = "assets/robo_dino.png";
 
@@ -161,6 +166,7 @@ function resetGame() {
   };
 
   pauseBtn.textContent = "PAUSE";
+  updateScoreBoard();
   beep(660, 0.08, "triangle");
 }
 
@@ -169,12 +175,30 @@ function say(text) {
   game.messageTimer = 110;
 }
 
+function getFinalScore() {
+  if (!game) return 0;
+  return Math.floor(game.score / 10) + game.coins * 5;
+}
+
+function updateScoreBoard() {
+  if (!game) return;
+
+  const finalScore = getFinalScore();
+  const best = Math.max(game.highScore, finalScore);
+
+  if (scoreValueEl) scoreValueEl.textContent = String(finalScore);
+  if (bestValueEl) bestValueEl.textContent = String(best);
+  if (coinValueEl) coinValueEl.textContent = String(game.coins);
+  if (speedValueEl) speedValueEl.textContent = game.speed.toFixed(1);
+}
+
 function resetHighScore() {
   localStorage.removeItem(hiKey);
 
   if (game) {
     game.highScore = 0;
     say("ハイスコアをリセットしました");
+    updateScoreBoard();
   }
 }
 
@@ -371,6 +395,7 @@ function hitDamage() {
     say("システム停止！RESTARTで再起動");
   }
 
+  updateScoreBoard();
   beep(90, 0.35, "sawtooth", 0.04);
 }
 
@@ -525,6 +550,8 @@ function update() {
   }
 
   game.powerups = game.powerups.filter((p) => !p.taken);
+
+  updateScoreBoard();
 
   if (Math.floor(game.score) % 700 === 0) {
     say("AI難易度、自動上昇中！");
@@ -779,33 +806,28 @@ function drawParticles() {
 }
 
 function drawUI() {
-  const finalScore = Math.floor(game.score / 10) + game.coins * 5;
+  const finalScore = getFinalScore();
 
-  ctx.fillStyle = "rgba(255,255,255,.86)";
-  ctx.beginPath();
-  ctx.roundRect(18, 16, 300, 122, 18);
-  ctx.fill();
-
-  ctx.fillStyle = "#082235";
-  ctx.font = "bold 25px system-ui";
-  ctx.fillText(`SCORE ${finalScore}`, 38, 52);
-
-  ctx.font = "16px system-ui";
-  ctx.fillText(`COIN ${game.coins}  COMBO ${game.combo}`, 38, 80);
-  ctx.fillText(`SPEED ${game.speed.toFixed(1)}  BEST ${Math.max(game.highScore, finalScore)}`, 38, 108);
-  ctx.fillText(game.mission, 38, 130);
+  // ゲーム画面内の常時スコアパネルは廃止。
+  // SCORE / BEST / COIN / SPEED はタイトル下のDOMに表示する。
 
   if (game.messageTimer > 0) {
     game.messageTimer--;
 
-    ctx.fillStyle = "rgba(0,28,45,.8)";
+    const messageWidth = Math.min(620, W - 48);
+    const messageX = (W - messageWidth) / 2;
+
+    ctx.save();
+    ctx.fillStyle = "rgba(0,28,45,.78)";
     ctx.beginPath();
-    ctx.roundRect(340, 20, 465, 60, 16);
+    ctx.roundRect(messageX, 18, messageWidth, 48, 16);
     ctx.fill();
 
     ctx.fillStyle = "#bfffff";
-    ctx.font = "bold 22px system-ui";
-    ctx.fillText(game.message, 364, 58);
+    ctx.textAlign = "center";
+    ctx.font = "bold 20px system-ui";
+    ctx.fillText(game.message, W / 2, 49);
+    ctx.restore();
   }
 
   if (game.paused) {
@@ -828,18 +850,20 @@ function drawUI() {
     ctx.textAlign = "center";
 
     ctx.font = "bold 56px system-ui";
-    ctx.fillText("GAME OVER", W / 2, H / 2 - 45);
+    ctx.fillText("GAME OVER", W / 2, H / 2 - 55);
 
     ctx.font = "bold 26px system-ui";
-    ctx.fillText(`FINAL SCORE ${finalScore}`, W / 2, H / 2);
+    ctx.fillText(`SCORE ${finalScore}`, W / 2, H / 2 - 6);
+
+    ctx.font = "bold 22px system-ui";
+    ctx.fillText(`BEST ${Math.max(game.highScore, finalScore)}`, W / 2, H / 2 + 28);
 
     ctx.font = "20px system-ui";
-    ctx.fillText("START / RESTARTで再挑戦", W / 2, H / 2 + 38);
+    ctx.fillText("START / RESTARTで再挑戦", W / 2, H / 2 + 66);
 
     ctx.textAlign = "left";
   }
 }
-
 function draw() {
   if (!game) resetGame();
 

@@ -29,6 +29,13 @@
       <p>AIロボティラノを操作して、障害物・レーザー・ボスドローンを突破しよう。</p>
     </header>
 
+    <section id="scoreBoard" class="scoreBoard" aria-label="game score">
+      <div><span>SCORE</span><strong id="scoreValue">0</strong></div>
+      <div><span>BEST</span><strong id="bestValue">0</strong></div>
+      <div><span>COIN</span><strong id="coinValue">0</strong></div>
+      <div><span>SPEED</span><strong id="speedValue">0.0</strong></div>
+    </section>
+
     <canvas id="game" width="960" height="540" aria-label="AI ROBO DINO RUN game screen"></canvas>
 
     <div class="controls" aria-label="game controls">
@@ -39,7 +46,7 @@
       <button id="soundBtn">SOUND ON</button>
       <button id="resetScoreBtn">RESET SCORE</button>
     </div>
-<div id="helpText"></div>
+    <div id="helpText"></div>
   </div>
 
   <script src="game.js"></script>
