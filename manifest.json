@@ -1,0 +1,23 @@
+{
+  "name": "AI Robo Dino Run",
+  "short_name": "RoboDino",
+  "description": "AIロボティラノを操作して障害物を避ける横スクロールランゲーム。",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#071827",
+  "theme_color": "#00e5ff",
+  "orientation": "landscape",
+  "icons": [
+    {
+      "src": "assets/robo_dino.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/robo_dino.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
