@@ -48,30 +48,9 @@ document.addEventListener("gestureend", function (e) {
 window.addEventListener("contextmenu", function (e) {
   e.preventDefault();
 });
-
-document.addEventListener(
-  "dblclick",
-  function (e) {
-    e.preventDefault();
-  },
-  { passive: false }
-);
-
-let lastTouchStart = 0;
-
-document.addEventListener(
-  "touchstart",
-  function (e) {
-    const now = Date.now();
-
-    if (now - lastTouchStart < 350) {
-      e.preventDefault();
-    }
-
-    lastTouchStart = now;
-  },
-  { passive: false }
-);
+document.addEventListener("dblclick", function (e) {
+  e.preventDefault();
+}, { passive: false });
 
 
 /* =========================================================
@@ -886,33 +865,13 @@ function loop() {
    イベント
 ========================================================= */
 
-function addFastButton(button, action, options = {}) {
-  let lastRun = 0;
-
-  function run(e) {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-
-    const now = Date.now();
-
-    // touchstart と pointerdown/click の二重発火を防ぐ
-    if (now - lastRun < 120) return;
-
-    lastRun = now;
-
-    button.classList.add("is-pressed");
-    window.setTimeout(function () {
-      button.classList.remove("is-pressed");
-    }, 90);
-
-    action();
-  }
-
+function addFastButton(button, action) {
   button.addEventListener(
     "touchstart",
-    run,
+    function (e) {
+      e.preventDefault();
+      action();
+    },
     { passive: false }
   );
 
@@ -920,41 +879,27 @@ function addFastButton(button, action, options = {}) {
     "pointerdown",
     function (e) {
       if (e.pointerType === "touch") return;
-      run(e);
-    },
-    { passive: false }
-  );
-
-  button.addEventListener(
-    "click",
-    function (e) {
-      // PCのキーボード操作・古いブラウザの保険
-      if (options.skipClick) {
-        e.preventDefault();
-        return;
-      }
-
-      run(e);
+      e.preventDefault();
+      action();
     },
     { passive: false }
   );
 }
 
 addFastButton(startBtn, resetGame);
-addFastButton(jumpBtn, jump, { skipClick: true });
-addFastButton(dashBtn, dash, { skipClick: true });
+addFastButton(jumpBtn, jump);
+addFastButton(dashBtn, dash);
 addFastButton(pauseBtn, togglePause);
-
 addFastButton(soundBtn, function () {
   soundOn = !soundOn;
   soundBtn.textContent = soundOn ? "SOUND ON" : "SOUND OFF";
 });
-
 addFastButton(resetScoreBtn, function () {
   if (confirm("ハイスコアをリセットしますか？")) {
     resetHighScore();
   }
 });
+
 
 window.addEventListener("keydown", function (e) {
   if (["Space", "ArrowUp", "KeyW"].includes(e.code)) {
@@ -978,7 +923,6 @@ window.addEventListener("keydown", function (e) {
   }
 });
 
-// ゲーム画面タップでもジャンプ。スマホでは touchstart を優先して反応を速くする。
 canvas.addEventListener(
   "touchstart",
   function (e) {
@@ -988,15 +932,10 @@ canvas.addEventListener(
   { passive: false }
 );
 
-canvas.addEventListener(
-  "pointerdown",
-  function (e) {
-    if (e.pointerType === "touch") return;
-    e.preventDefault();
-    jump();
-  },
-  { passive: false }
-);
+canvas.addEventListener("mousedown", function (e) {
+  e.preventDefault();
+  jump();
+});
 
 /* =========================================================
    古いブラウザ向け roundRect 対策

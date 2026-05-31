@@ -15,16 +15,12 @@ body {
   width: 100%;
   min-height: 100vh;
   min-height: 100dvh;
-
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background: radial-gradient(circle at top, #ffffff 0%, #dff6ff 42%, #071827 100%);
   color: #102235;
-
   overflow-x: hidden;
-  overflow-y: auto;
   overscroll-behavior: none;
   touch-action: manipulation;
-
   -webkit-user-select: none;
   user-select: none;
   -webkit-touch-callout: none;
@@ -38,14 +34,19 @@ canvas {
 }
 
 .wrap {
-  width: min(100%, 1200px);
+  width: min(100%, 1120px);
+  min-height: 100dvh;
   margin: 0 auto;
-  padding: max(10px, env(safe-area-inset-top)) 14px max(14px, env(safe-area-inset-bottom));
+  padding: max(12px, env(safe-area-inset-top)) 14px max(12px, env(safe-area-inset-bottom));
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
 }
 
 .hero {
-  margin-bottom: 8px;
+  margin: 0;
 }
 
 .badge {
@@ -62,19 +63,19 @@ canvas {
 }
 
 h1 {
-  margin: 3px 0;
-  font-size: clamp(28px, 5vw, 46px);
+  margin: 0;
+  font-size: clamp(30px, 5vw, 54px);
   line-height: 1;
   letter-spacing: 0.02em;
 }
 
 p {
-  margin: 5px 0 10px;
+  margin: 6px 0 0;
 }
 
 canvas {
   width: 100%;
-  max-width: 860px;
+  max-width: 920px;
   aspect-ratio: 16 / 9;
   display: block;
   margin: 0 auto;
@@ -86,30 +87,37 @@ canvas {
 }
 
 .controls {
-  max-width: 860px;
-  margin: 10px auto 0;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 9px;
+  grid-template-columns: 1fr 1fr repeat(4, auto);
+  gap: 10px;
+  align-items: stretch;
+  justify-content: center;
+  width: min(100%, 920px);
+  margin: 0 auto;
 }
 
 button {
   border: 0;
   border-radius: 999px;
-  padding: 11px 12px;
+  padding: 12px 16px;
   font-weight: 900;
   cursor: pointer;
   color: white;
   background: linear-gradient(135deg, #008cff, #00e5ff);
   box-shadow: 0 8px 22px rgba(0, 160, 255, 0.35);
-  min-width: 0;
+  min-width: 102px;
   touch-action: manipulation;
 }
 
-button:active,
-button.is-pressed {
-  transform: translateY(2px) scale(0.98);
-  filter: brightness(1.08);
+button:active {
+  transform: translateY(2px) scale(0.99);
+}
+
+#jumpBtn,
+#dashBtn {
+  min-height: 58px;
+  font-size: 20px;
+  letter-spacing: 0.04em;
 }
 
 #jumpBtn {
@@ -121,92 +129,30 @@ button.is-pressed {
   color: #332000;
 }
 
-.infoPanel {
-  max-width: 860px;
-  margin: 10px auto 0;
-  padding: 12px 14px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: 0 12px 32px rgba(0, 80, 120, 0.22);
-  text-align: left;
+#startBtn,
+#pauseBtn,
+#soundBtn,
+#resetScoreBtn {
+  font-size: 12px;
+  min-width: 88px;
+  padding-inline: 12px;
 }
 
-.infoPanel h2 {
-  margin: 0 0 8px;
-  text-align: center;
-  font-size: 20px;
-}
-
-.infoGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-
-.infoGrid div {
-  padding: 10px;
-  border-radius: 14px;
-  background: linear-gradient(180deg, rgba(0, 229, 255, 0.15), rgba(255, 255, 255, 0.7));
-  line-height: 1.55;
-  font-size: 14px;
-}
-
-/* PCで遊び方まで収まりやすくする */
-@media (min-width: 1000px) and (max-height: 850px) {
-  .wrap {
-    padding-top: 8px;
-  }
-
-  h1 {
-    font-size: 38px;
-  }
-
-  .hero p {
-    margin-bottom: 7px;
-  }
-
-  canvas {
-    max-width: 800px;
-  }
-
-  .controls {
-    max-width: 800px;
-    margin-top: 8px;
-  }
-
-  button {
-    padding: 9px 10px;
-    font-size: 13px;
-  }
-
-  .infoPanel {
-    max-width: 800px;
-    margin-top: 8px;
-    padding: 10px 12px;
-  }
-
-  .infoGrid div {
-    font-size: 13px;
-    line-height: 1.45;
-    padding: 9px;
-  }
-}
-
-/* タブレット・スマホ：画面構成は大きく変えず、操作ボタンだけ押しやすくする */
-@media (max-width: 768px) {
+@media (max-width: 720px) {
   body {
-    overflow-x: hidden;
-    overflow-y: auto;
-    touch-action: manipulation;
+    overflow: hidden;
   }
 
   .wrap {
-    width: 100%;
-    padding-inline: 10px;
-  }
-
-  .hero {
-    margin-bottom: 8px;
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100dvh;
+    min-height: 100dvh;
+    padding: max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom));
+    justify-content: center;
+    gap: 9px;
+    overflow: hidden;
   }
 
   .badge {
@@ -214,58 +160,43 @@ button.is-pressed {
   }
 
   h1 {
-    font-size: clamp(26px, 8vw, 36px);
+    font-size: clamp(28px, 8vw, 42px);
   }
 
   .hero p {
-    font-size: 13px;
-    margin-bottom: 8px;
+    display: none;
   }
 
   canvas {
-    max-width: 100%;
+    width: 100%;
+    max-width: none;
+    max-height: 56dvh;
     border-radius: 14px;
+    border-width: 2px;
   }
 
   .controls {
-    max-width: 100%;
-    grid-template-columns: 1.1fr 1.1fr 0.8fr;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     grid-template-areas:
-      "jump dash start"
-      "jump dash pause"
-      "sound reset reset";
+      "jump dash"
+      "start pause"
+      "sound reset";
     gap: 8px;
-    margin-top: 10px;
   }
 
-  #jumpBtn {
-    grid-area: jump;
-  }
-
-  #dashBtn {
-    grid-area: dash;
-  }
-
-  #startBtn {
-    grid-area: start;
-  }
-
-  #pauseBtn {
-    grid-area: pause;
-  }
-
-  #soundBtn {
-    grid-area: sound;
-  }
-
-  #resetScoreBtn {
-    grid-area: reset;
-  }
+  #jumpBtn { grid-area: jump; }
+  #dashBtn { grid-area: dash; }
+  #startBtn { grid-area: start; }
+  #pauseBtn { grid-area: pause; }
+  #soundBtn { grid-area: sound; }
+  #resetScoreBtn { grid-area: reset; }
 
   #jumpBtn,
   #dashBtn {
-    min-height: 86px;
-    font-size: 22px;
+    min-height: 76px;
+    font-size: 24px;
     border-radius: 22px;
   }
 
@@ -273,71 +204,34 @@ button.is-pressed {
   #pauseBtn,
   #soundBtn,
   #resetScoreBtn {
-    min-height: 38px;
-    padding: 8px 6px;
-    font-size: 10px;
-    border-radius: 12px;
-  }
-
-  .infoGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .infoPanel {
-    margin-top: 12px;
+    min-height: 42px;
+    min-width: 0;
+    font-size: 12px;
+    border-radius: 14px;
   }
 }
 
-/* 小さいスマホは説明をたたみ、ゲームと操作を優先 */
-@media (max-width: 520px) {
-  .hero p {
-    display: none;
-  }
-
-  .infoPanel {
-    display: none;
-  }
-
+@media (orientation: landscape) and (max-height: 520px) {
   .wrap {
-    padding-top: max(8px, env(safe-area-inset-top));
-  }
-
-  .controls {
-    margin-top: 8px;
-  }
-}
-
-/* 横向きスマホ：ゲーム画面を広く、JUMP/DASHを大きく維持 */
-@media (max-width: 920px) and (orientation: landscape) {
-  body {
-    overflow: hidden;
-  }
-
-  .wrap {
-    height: 100dvh;
-    display: grid;
     grid-template-rows: auto 1fr auto;
     gap: 6px;
-    padding: max(6px, env(safe-area-inset-top)) 8px max(6px, env(safe-area-inset-bottom));
+    padding: 6px 10px max(6px, env(safe-area-inset-bottom));
   }
 
-  .hero {
-    display: none;
+  h1 {
+    font-size: clamp(22px, 4vw, 34px);
   }
 
   canvas {
     width: auto;
-    height: 100%;
-    max-height: 72dvh;
+    height: min(68dvh, 360px);
     max-width: 96vw;
-    align-self: center;
   }
 
   .controls {
-    grid-template-columns: 1.2fr 1.2fr repeat(4, 0.75fr);
+    grid-template-columns: 1.2fr 1.2fr repeat(4, 0.85fr);
     grid-template-areas: "jump dash start pause sound reset";
     gap: 6px;
-    margin-top: 0;
   }
 
   #jumpBtn,
@@ -351,12 +245,8 @@ button.is-pressed {
   #pauseBtn,
   #soundBtn,
   #resetScoreBtn {
-    min-height: 34px;
-    padding: 7px 4px;
+    min-height: 36px;
     font-size: 10px;
-  }
-
-  .infoPanel {
-    display: none;
+    padding: 7px 5px;
   }
 }
