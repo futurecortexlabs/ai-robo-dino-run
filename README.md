@@ -12,7 +12,7 @@ Play directly in your browser via GitHub Pages.
 
 GitHub Pagesでブラウザからそのまま遊べます。
 
-https://futurecortexlabs.github.io/AI-ROBO-DINO-RUN/
+https://futurecortexlabs.github.io/ai-robo-dino-run/
 
 ---
 
