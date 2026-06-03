@@ -180,3 +180,7 @@ https://github.com/futurecortexlabs
 note
 
 https://note.com/future_cortex
+
+Hugging Face
+
+https://huggingface.co/FCTX
